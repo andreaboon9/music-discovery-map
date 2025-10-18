@@ -1,165 +1,175 @@
 # Visual Music Discovery Map
 
-A modern, interactive web application that helps users discover similar artists and songs through an intuitive visual map interface. The closer items appear on the map, the more similar they are, making music discovery natural and engaging.
+A modern, interactive web application that helps users discover similar artists through an intuitive visual map interface. The closer artists appear on the map, the more similar they are, making music discovery natural and engaging.
 
 ---
 
 ## 📋 Product Specification
 
 ### Core Concept
-Users can explore music through a visual force-directed graph where artists and songs are positioned based on similarity. Distance equals similarity—closer nodes indicate higher compatibility with user preferences.
+Users can explore music through a visual force-directed graph where artists are positioned based on similarity. Distance equals similarity—closer nodes indicate higher compatibility with user preferences.
 
 ### Key Features
 
-#### Phase 1: Core Discovery
-- **Artist/Song Search**: Type any artist or song name to see it visualized on the map
+#### Phase 1: Artist Discovery (✅ Complete)
+- **Artist Search**: Type any artist name to see it visualized on the map with real Spotify data
+- **Proximity-Based Visualization**: Related artists orbit around the searched artist based on genre similarity
+- **Interactive Exploration**: Click any artist to view their top 3 songs with monthly listener counts
+- **Real-time Data**: Direct integration with Spotify Web API for artist details, genres, popularity, and top tracks
+- **Clean UI**: Spotify-branded dark theme (#191414 black, #1DB954 green) with dismissible "How it works" banner
+- **Mobile-Responsive**: Works seamlessly on desktop and mobile browsers
+
+#### Phase 2: Core Discovery
+- **Song Search**: Type any song name to see it visualized on the map
 - **Similarity Visualization**: Proximity-based layout shows similar music nearby
-- **Interactive Exploration**: Click nodes to discover more similar artists/songs
+- **Interactive Exploration**: Click nodes to discover more similar songs
 - **"Surprise Me" Feature**: Discover new artists from adjacent genres (controlled exploration)
 
-#### Phase 2: Personalization
+#### Phase 3: Personalization
 - **Spotify Integration**: Connect Spotify account or paste profile link (no login required for paste)
 - **Personal Music Map**: Visualize your own listening habits
 - **Diversity Metrics**: See how diverse or focused your music taste is
 - **Recommendations**: Get personalized suggestions for how to diversify your music taste based on your map
+- **30-Second Previews**: Click any artist node on the map to play a 30-second preview of their top track
 
 ### User Flows
 
-1. **Discovery Flow**
-   - User enters artist/song name
-   - Map displays the item with similar artists/songs nearby
-   - User clicks nodes to explore deeper
-   - "Surprise Me" suggests something different but compatible
+1. **Discovery Flow** (Current)
+   - User enters artist name
+   - Map displays the artist at center with similar artists orbiting nearby
+   - User clicks any artist to view their top 3 songs
+   - Clean, minimal interface with dismissible helper banner
 
-2. **Personal Map Flow** (Future)
+2. **Enhanced Discovery Flow** (Phase 2)
+   - User enters song or artist name
+   - "Surprise Me" suggests something different but compatible
+   - User explores deeper connections through interactive nodes
+
+3. **Personal Map Flow** (Phase 3)
    - User connects Spotify or pastes profile link
    - System analyzes listening history
    - Generates personalized visual map
    - Shows diversity score and clusters
+   - Click artist nodes to play 30-second preview of top track
 
 ---
 
-## 🎨 Design Approach
+## Design Approach
 
 ### Visualization Strategy
-- **Force-Directed Graph**: Nodes (artists/songs) that attract/repel based on similarity scores
+- **Force-Directed Graph**: Center artist positioned at (0, 0) with related artists orbiting based on similarity
 - **Interactive Nodes**: 
   - Size indicates popularity
-  - Color indicates genre
-  - Hover shows details
-  - Click to expand connections
+  - Color-coded genre tags
+  - Hover shows artist details
+  - Click to view top songs in detail panel
   
 ### UI/UX Principles
-- **Minimal Interface**: Clean search bar, floating "Surprise Me" button
-- **Smooth Animations**: Transitions when nodes are added/removed
-- **Responsive Design**: Works on desktop and mobile browser
+- **Minimal Interface**: Centered search bar that moves to top when artists load
+- **Spotify Branding**: Official dark mode colors (#191414 background, #1DB954 accents)
+- **Smooth Animations**: Transitions when artists appear and search bar repositions
+- **Responsive Design**: Works on desktop and mobile browsers
 - **Visual Hierarchy**: Focus on the map, supporting UI elements are subtle
+- **Frictionless**: No unnecessary controls or clutter (removed zoom buttons and attribution)
 
 ### Color & Style
-- **Dark Mode First**: Works well for visualization
-- **Genre Colors**: Distinct palette for different genres
-- **Glassmorphism**: Modern, clean aesthetic for UI cards
+- **Spotify Dark Mode**: Black (#191414) background with green (#1DB954) accents
+- **Genre Tags**: Green pill-shaped badges for genres
+- **Glassmorphism**: Semi-transparent backgrounds with backdrop blur for UI cards
 - **Smooth Edges**: Rounded corners, soft shadows
 
 ---
 
-## 🛠 Technology Stack
+## Technology Stack
 
 ### Frontend
-- **React** - UI framework
+- **React 18** - UI framework
 - **Zustand** - State management (centralized, simple)
-- **React Flow** - Graph visualization (easy to use, performant)
-- **Tailwind CSS v3** - Styling (rapid development)
+- **ReactFlow** - Graph visualization (minimal UI, custom nodes)
+- **Tailwind CSS v3** - Styling (utility-first)
+- **Axios** - HTTP client for API communication
 
 ### Backend
-- **Node.js + Express** - API server (simple, lightweight)
-- **Axios** - HTTP client for Spotify API
+- **Node.js + Express** - API server (port 3001)
+- **TypeScript** - Type safety with tsx runtime
+- **Spotify Web API** - Artist data, top tracks, search
 
 ### Data & APIs
-- **Mock Data** (Milestone 1) - Start with sample artist data
-- **Spotify Web API** (Milestone 2+) - Real music data and similarity
+- **Spotify Web API** - Real music data
+  - Client Credentials authentication flow
+  - Artist search endpoint
+  - Artist details endpoint
+  - Top tracks endpoint
+  - Genre-based similar artist discovery (workaround for Related Artists API limitations)
 
 ### Development Tools
-- **Vite** - Fast build tool
+- **Vite** - Fast build tool with HMR
 - **Vitest** - Unit testing
-- **ESLint + Prettier** - Code quality
 - **Git** - Version control
+- **Replit Secrets** - Secure API credential management
 
 ---
 
-## 🎯 Development Milestones
+## Development Milestones
 
-### Milestone 1: MVP - Basic Music Map ✅
-**Goal**: Get a working visual map with mock data
+### Milestone 1: Artist Discovery with Spotify Integration ✅ **COMPLETE**
+**Goal**: Working visual map with real Spotify data
 
-**Features**:
-- Search bar for artist names
-- Basic force-directed graph visualization
-- 5-10 mock artists with similarity relationships
-- Click to view artist details
-- Responsive layout
+**Completed Features**:
+- Artist search with real-time Spotify API integration
+- Proximity-based graph visualization with ReactFlow
+- Click to view artist details and top 3 songs
+- Responsive layout with Spotify branding
+- Express backend API proxy (port 3001)
+- Genre-based similar artist discovery
+- Mobile-responsive search interface
+- Dismissible "How it works" helper banner
+- Clean UI with no unnecessary controls
 
-**Deliverables**:
-- React app with Zustand state management
-- React Flow graph component
-- Mock data model for artists
-- Basic search functionality
-- Component library (SearchBar, ArtistNode, MapCanvas)
+**Tech Stack**:
+- React 18 with TypeScript
+- Zustand state management
+- ReactFlow for visualization
+- Express backend with Spotify API
+- Vite dev server with proper Replit configuration
 
-**Testing**: Ensure search works, nodes are clickable, layout is responsive
-
----
-
-### Milestone 2: Spotify API Integration 🎵
-**Goal**: Replace mock data with real Spotify data
-
-**Features**:
-- Connect to Spotify Web API
-- Search real artists and songs
-- Fetch similar artists using Spotify's recommendations
-- Display real album artwork and metadata
-- Handle API rate limiting
-
-**Deliverables**:
-- Express backend with Spotify API proxy
-- API key management (use Replit secrets)
-- Artist/song data fetching service
-- Similarity calculation based on Spotify features
-- Error handling for API failures
-
-**Testing**: Test API integration, handle edge cases, verify similarity accuracy
+**Current State**: Fully functional artist discovery app with real Spotify data
 
 ---
 
-### Milestone 3: "Surprise Me" Feature 🎲
-**Goal**: Intelligent genre exploration
+### Milestone 2: Song Search & "Surprise Me" 🎵
+**Goal**: Expand discovery with song search and intelligent recommendations
 
-**Features**:
+**Planned Features**:
+- Search by song name (in addition to artist)
+- Display songs as nodes with artist connections
 - "Surprise Me" button with genre distance algorithm
 - Controlled randomness (1-2 genres away from current selection)
-- Show the "journey" from current to suggested artist
+- Show the "journey" from current to suggested artist/song
 - Save/bookmark surprising discoveries
 
 **Deliverables**:
-- Genre classification system
-- Distance calculation algorithm (genre proximity)
+- Song search API integration
+- Song node visualization component
+- Genre classification and distance system
 - Surprise recommendation engine
-- Visual path showing the connection
+- Visual path showing connections
 - Favorites/bookmark functionality
 
 **Testing**: Verify surprises are relevant, not too far from user taste
 
 ---
 
-### Milestone 4: Spotify Profile Integration 🔗
-**Goal**: Personalized music maps
+### Milestone 3: Personal Spotify Integration 🔗
+**Goal**: Personalized music maps from user data with audio previews
 
-**Features**:
+**Planned Features**:
 - Option 1: OAuth Spotify login (secure, full access)
 - Option 2: Paste Spotify profile link (no login, limited data)
 - Fetch user's top artists and tracks
 - Generate personalized visual map
 - Show listening patterns and clusters
+- 30-second audio preview playback when clicking artist nodes
 
 **Deliverables**:
 - Spotify OAuth flow (using Replit integration)
@@ -167,24 +177,26 @@ Users can explore music through a visual force-directed graph where artists and 
 - User data fetching and processing
 - Personal map generation algorithm
 - User preference storage
+- Audio player component with 30-second preview support
+- Track preview URL integration from Spotify API
 
-**Testing**: Test both auth methods, ensure data privacy, verify map accuracy
+**Testing**: Test both auth methods, ensure data privacy, verify map accuracy, test audio playback across browsers
 
 ---
 
-### Milestone 5: Diversity Analytics 📊
+### Milestone 4: Diversity Analytics 📊
 **Goal**: Music taste insights and metrics
 
-**Features**:
+**Planned Features**:
 - Diversity score (how varied is your taste?)
 - Genre distribution chart
 - Temporal analysis (how taste evolved)
 - Cluster identification (your "music islands")
-- Shareable map visualization with others
+- Shareable map visualization
 
 **Deliverables**:
 - Analytics calculation engine
-- Recharts integration for data viz
+- Data visualization components
 - Diversity metrics dashboard
 - Share/export functionality
 - Visual summary card
@@ -193,85 +205,59 @@ Users can explore music through a visual force-directed graph where artists and 
 
 ---
 
-## 💡 Development Best Practices
+## Development Best Practices
 
 ### Code Quality Standards
 
-#### 1. Testing Strategy
-- **Unit Tests**: Write tests for each component and utility function
-- **Integration Tests**: Test API interactions and data flow
-- **Visual Tests**: Verify UI components render correctly
-- **Test Coverage Goal**: Aim for 80%+ coverage
-- **Test Before Deploy**: All tests must pass before milestone completion
+#### 1. Component Organization
+- **Component Library Pattern**: Reusable components in `/src/components`
+  - `SearchBar` - Artist search with magnifying glass icon
+  - `LandingDescription` - Onboarding text for empty state
+  - `InfoBanner` - Dismissible helper banner with localStorage persistence
+  - `MapCanvas` - ReactFlow wrapper for graph visualization
+  - `ArtistNode` - Custom node component
+  - `ArtistDetails` - Selected artist information panel
+  - `Logo` - Network graph SVG in Spotify green
 
-#### 2. Git Workflow
-- **Descriptive Commits**: Use conventional commits format
-  - `feat: add artist search functionality`
-  - `fix: resolve node positioning bug`
-  - `test: add unit tests for similarity algorithm`
-- **Branch Strategy**: `main` → `develop` → feature branches
-- **Small, Focused Commits**: One logical change per commit
-- **PR Reviews**: Review code before merging to main
+#### 2. State Management
+- **Zustand Store**: Single source of truth (`useMapStore`)
+- **Individual Selectors**: Prevent unnecessary re-renders
+- **No Component-Level State**: All artist data in centralized store
+- **Clear Actions**: Well-named functions for state updates
 
-#### 3. Code Organization
-- **Follow Existing Patterns**: Maintain consistent code structure
-- **Component Library**: Reusable components in `/src/components`
-- **Custom Hooks**: Extract logic into reusable hooks
-- **Constants**: Keep magic numbers in `/src/constants`
-- **Types**: Define TypeScript interfaces in `/src/types`
+#### 3. Replit-Specific Configuration
+- **Vite Config**: `allowedHosts: true` for dynamic Replit hostnames
+- **No HMR Override**: Let Vite auto-detect host (DO NOT set `hmr.host` to localhost)
+- **Component Positioning**: Managed by parent (App.tsx) to prevent unmount/remount issues
+- **SearchBar Strategy**: Stays mounted with CSS position changes only
 
-#### 4. State Management
-- **Centralized State**: Use Zustand store, not component state
-- **Single Source of Truth**: All app state in one place
-- **Immutable Updates**: Never mutate state directly
-- **Clear Actions**: Well-named action functions
-
-#### 5. Performance
-- **Lazy Loading**: Code-split routes and heavy components
-- **Memoization**: Use React.memo and useMemo for expensive operations
-- **Debounce Search**: Avoid excessive API calls
-- **Optimize Renders**: Minimize unnecessary re-renders
-
-#### 6. Security
-- **API Keys in Secrets**: Never commit keys to git
-- **Use Replit Integrations**: Manage Spotify credentials securely
-- **Sanitize Inputs**: Validate all user input
-- **HTTPS Only**: Ensure secure connections
+#### 4. Security
+- **API Keys in Secrets**: Using Replit Secrets for `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`
+- **Backend Proxy**: Frontend never touches API credentials
+- **Client Credentials Flow**: No user authentication required for basic discovery
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+ installed
-- Spotify Developer Account (for API access in Milestone 2)
+- Spotify Developer Account (for API access)
 - Replit account (recommended for deployment)
 
-### Initial Setup
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Run tests
-npm test
-
-# Build for production
-npm run build
-```
-
 ### Environment Variables
+Set these in Replit Secrets:
 ```
 SPOTIFY_CLIENT_ID=your_client_id
 SPOTIFY_CLIENT_SECRET=your_client_secret
 ```
 
-### Testing Incrementally
-- **After Each Feature**: Test the new functionality
-- **After Each Milestone**: Full regression testing
-- **Before Deployment**: Test on production build
+### Running the App
+The app uses two workflows:
+- **Backend** (port 3001): Express API server with Spotify integration
+- **Server** (port 5000): Vite frontend dev server
+
+Both start automatically in Replit. Access the app at the Replit preview URL.
 
 ---
 
@@ -281,24 +267,35 @@ SPOTIFY_CLIENT_SECRET=your_client_secret
 music-map/
 ├── src/
 │   ├── components/       # Reusable UI components
-│   ├── hooks/           # Custom React hooks
+│   │   ├── SearchBar.tsx
+│   │   ├── LandingDescription.tsx
+│   │   ├── InfoBanner.tsx
+│   │   ├── MapCanvas.tsx
+│   │   ├── ArtistNode.tsx
+│   │   ├── ArtistDetails.tsx
+│   │   └── Logo.tsx
 │   ├── store/           # Zustand state management
+│   │   └── useMapStore.ts
 │   ├── services/        # API services
-│   ├── utils/           # Helper functions
+│   │   └── api.ts
 │   ├── types/           # TypeScript types
-│   ├── constants/       # App constants
+│   │   └── index.ts
 │   └── App.tsx          # Main app component
 ├── server/              # Express backend
 │   ├── routes/          # API routes
-│   └── services/        # Spotify integration
-├── tests/               # Test files
+│   │   └── artists.ts
+│   ├── services/        # Spotify integration
+│   │   └── spotify.ts
+│   └── index.ts         # Server entry point
 ├── public/              # Static assets
+├── vite.config.ts       # Vite configuration
+├── replit.md            # Technical architecture docs
 └── README.md            # This file
 ```
 
 ---
 
-## 🎵 Data Model
+## Data Model
 
 ### Artist Node
 ```typescript
@@ -306,10 +303,14 @@ interface Artist {
   id: string;
   name: string;
   genres: string[];
-  popularity: number;
+  popularity: number; // 0-100
   imageUrl: string;
   spotifyUrl: string;
   similarArtists: string[]; // Array of artist IDs
+  topSongs: { 
+    name: string; 
+    monthlyListeners: number;
+  }[];
 }
 ```
 
@@ -318,26 +319,65 @@ interface Artist {
 interface MapState {
   nodes: Artist[];
   selectedNode: string | null;
+  centerArtistId: string | null;
   searchQuery: string;
-  surpriseMode: boolean;
+  isLoading: boolean;
+  error: string | null;
+  // Actions
+  addNode: (artist: Artist) => void;
+  selectNode: (id: string | null) => void;
+  setSearchQuery: (query: string) => void;
+  searchArtist: (name: string) => Promise<void>;
+  clearError: () => void;
 }
 ```
 
 ---
 
-## 📝 Notes
+## API Endpoints
 
-- **Start Simple**: Use mock data to get the visualization working first
-- **Iterate Quickly**: Test each feature before moving to the next
-- **User Feedback**: Get feedback after each milestone
-- **Keep It Visual**: The map is the star—keep UI minimal and focused
-- **Have Fun**: Music discovery should be joyful and intuitive!
+### Backend API (port 3001)
+
+**Search Artists**
+```
+GET /api/artists/search?q={query}
+```
+Returns array of artist search results from Spotify.
+
+**Get Artist with Related Artists**
+```
+GET /api/artists/:id
+```
+Returns artist details with top 3 songs and related artists (with their top 3 songs).
 
 ---
 
-## 🔮 Future Enhancements
+## Technical Notes
+
+### Spotify API Workaround
+- **Challenge**: Spotify's Related Artists endpoint requires Extended Access after May 2025 changes
+- **Solution**: Genre-based artist discovery using curated lists of well-known artists per genre
+- **Implementation**: Search for popular artists in matching genres, rank by genre overlap and popularity
+
+### Critical Configuration
+- **Vite HMR**: Auto-configured for Replit (no localhost override)
+- **Component Lifecycle**: SearchBar never unmounts to preserve user input
+- **ReactFlow Controls**: Removed for minimal UI (users can still zoom/pan with gestures)
+
+---
+
+## Future Enhancements
+- Song-level search and visualization
+- "Surprise Me" feature for serendipitous discovery
+- Personal Spotify integration with OAuth
+- Diversity metrics and analytics
 - Collaborative playlists from map exploration
 - Social features (share maps with friends)
 - Music mood/vibe filtering
 - Time-based music evolution visualization
 - Integration with other music services (Apple Music, YouTube Music)
+
+---
+
+## License
+This project is for educational and demonstration purposes.
